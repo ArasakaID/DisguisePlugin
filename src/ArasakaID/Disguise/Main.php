@@ -33,10 +33,10 @@ class Main extends PluginBase
     private function registerEntities(){
         Entity::registerEntity(FallingBlock::class, true);
         Entity::registerEntity(ItemEntity::class, true);
-        Entity::registerEntity(DisguiseEntity::class, true);
         Entity::registerEntity(Player::class, true);
         if ($this->getConfig()->get("disguise-entity")) {
             $this->getLogger()->notice("Disguise Entity is enable, registering new entities class!");
+            Entity::registerEntity(DisguiseEntity::class, true);
             Entity::registerEntity(Chicken::class, true);
             Entity::registerEntity(Cow::class, true);
             Entity::registerEntity(Creeper::class, true);
