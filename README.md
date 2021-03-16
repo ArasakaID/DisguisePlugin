@@ -18,6 +18,28 @@
 | Pig | disguise.command.use.pig |
 | Sheep | disguise.command.use.sheep |
 | Skeleton | disguise.command.use.skeleton |
-| Villager` | disguise.command.use.villager |
+| Villager | disguise.command.use.villager |
 | Wolf` | disguise.command.use.level |
 | Zombie | disguise.command.use.zombie |
+
+# Config:
+```php
+---
+# Do not edit this!
+config-version: 1.0
+
+#Set true/false to enable/disable it
+disguise-entity: true
+
+#Messages
+# You can colored the message with §
+# {BlockName} is the block name
+disguise-as-block: "You have disguised as {BlockName}"
+# {ItemName} is the item name
+disguise-as-item: "You have disguised as {ItemName}"
+# {EntityName} is the block name
+disguise-as-entity: "You have disguised as {EntityName}"
+# {TargetName} is the player(target) name
+disguise-as-player: "You have disguised as {TargetName}"
+...
+```
