@@ -46,3 +46,6 @@ disguise-as-entity: "You have disguised as {EntityName}"
 disguise-as-player: "You have disguised as {TargetName}"
 ...
 ```
+
+# Issues:
+If you have error with this plugin, please make a issues on [Here](https://github.com/MasApip/DisguisePlugin/issues/new)
