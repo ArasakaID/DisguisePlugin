@@ -3,6 +3,7 @@
 namespace ArasakaID\Disguise\entity;
 
 use ArasakaID\Disguise\data\PlayerData;
+use ArasakaID\Disguise\Main;
 use pocketmine\entity\object\FallingBlock as PMFallingBlock;
 use pocketmine\level\Level;
 use pocketmine\math\Vector3;
@@ -11,11 +12,13 @@ use pocketmine\Player;
 
 class FallingBlock extends PMFallingBlock {
 
-    protected ?Player $player = null;
+    private ?Player $player;
+    private Main $plugin;
 
     public function __construct(Level $level, CompoundTag $nbt, Player $player)
     {
         $this->player = $player;
+        $this->plugin = Main::getInstance();
         parent::__construct($level, $nbt);
     }
 
@@ -26,6 +29,9 @@ class FallingBlock extends PMFallingBlock {
         }
         $playerData = new PlayerData($this->player);
         if(!$playerData->isRegistered()){
+            return false;
+        }
+        if($this->player->isSneaking() && $this->plugin->getConfig()->get("disguise-block-sneak")){
             return false;
         }
         $this->setPosition(new Vector3($this->player->getX(), $this->player->getY(), $this->player->getZ()));

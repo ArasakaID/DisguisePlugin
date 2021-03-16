@@ -22,12 +22,20 @@ use pocketmine\plugin\PluginBase;
 class Main extends PluginBase
 {
 
+    private static Main $instance;
+
+    public static function getInstance(): Main {
+        return self::$instance;
+    }
+
     public function onEnable()
     {
+        self::$instance = $this;
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getCommandMap()->register($this->getName(), new DisguiseCommand($this));
         $this->registerEntities();
         $this->checkConfig();
+        $this->sendNotice();
     }
 
     private function registerEntities(){
@@ -35,7 +43,6 @@ class Main extends PluginBase
         Entity::registerEntity(ItemEntity::class, true);
         Entity::registerEntity(Player::class, true);
         if ($this->getConfig()->get("disguise-entity")) {
-            $this->getLogger()->notice("Disguise Entity is enable, registering new entities class!");
             Entity::registerEntity(DisguiseEntity::class, true);
             Entity::registerEntity(Chicken::class, true);
             Entity::registerEntity(Cow::class, true);
@@ -46,15 +53,21 @@ class Main extends PluginBase
             Entity::registerEntity(Villager::class, true);
             Entity::registerEntity(Wolf::class, true);
             Entity::registerEntity(Zombie::class, true);
+        }
+    }
+
+    private function sendNotice(){
+        if ($this->getConfig()->get("disguise-entity")) {
+            $this->getLogger()->notice("Disguise Entity is enable, registering new entities class!");
         } else {
-            $this->getLogger()->notice("Disguise Entity is disable!");
+            $this->getLogger()->notice("Disguise Entity is disabled!");
         }
     }
 
     private function checkConfig()
     {
-        if ($this->getConfig()->get("config-version") !== 1.0) {
-            $this->getLogger()->notice("Updating config.yml !");
+        if ($this->getConfig()->get("config-version") !== 1.2) {
+            $this->getLogger()->notice("You are using the new version of Disguise Plugin, updating config.yml !");
             rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config.old.yml");
             $this->reloadConfig();
         }

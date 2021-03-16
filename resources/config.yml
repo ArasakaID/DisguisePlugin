@@ -1,18 +1,22 @@
 ---
 # Do not edit this!
-config-version: 1.0
+config-version: 1.2
 
 #Set true/false to enable/disable it
 disguise-entity: true
 
+#Disguise block
+#If you sneak the block position will like real block (I don't know how to explain it)
+disguise-block-sneak: false
+
 #Messages
 # You can colored the message with §
 # {BlockName} is the block name
-disguise-as-block: "You have disguised as {BlockName}"
+disguise-as-block: "§aYou have disguised as {BlockName}"
 # {ItemName} is the item name
-disguise-as-item: "You have disguised as {ItemName}"
+disguise-as-item: "§aYou have disguised as {ItemName}"
 # {EntityName} is the block name
-disguise-as-entity: "You have disguised as {EntityName}"
+disguise-as-entity: "§aYou have disguised as {EntityName}"
 # {TargetName} is the player(target) name
-disguise-as-player: "You have disguised as {TargetName}"
+disguise-as-player: "§aYou have disguised as {TargetName}"
 ...

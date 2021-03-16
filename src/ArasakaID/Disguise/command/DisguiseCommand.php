@@ -62,7 +62,7 @@ class DisguiseCommand extends Command
                                         $entity = new FallingBlock($sender->getLevel(), $nbt, $sender);
                                         $entity->spawnToAll();
                                         $playerData->setEntityId($entity->getId());
-                                        $sender->sendMessage(str_replace('{BlockName}', $block->getName(), $this->plugin->getConfig()->get("disguise-as-block")));
+                                        $sender->sendMessage(str_replace('{BlockName}', $itemFactory->getName(), $this->plugin->getConfig()->get("disguise-as-block")));
                                     } else {
                                         $sender->sendMessage(TextFormat::RED . "Item must be a Item Block!");
                                     }
@@ -87,7 +87,7 @@ class DisguiseCommand extends Command
                                     $itemEntity = new ItemEntity($sender->getLevel(), $nbt, $sender);
                                     $itemEntity->spawnToAll();
                                     $playerData->setEntityId($itemEntity->getId());
-                                    $sender->sendMessage(str_replace('{ItemName}', $item->getName(), $this->plugin->getConfig()->get("disguise-as-item")));
+                                    $sender->sendMessage(str_replace('{ItemName}', $itemFactory->getName(), $this->plugin->getConfig()->get("disguise-as-item")));
                                 } else {
                                     $sender->sendMessage(TextFormat::RED . "Type id/name the item!");
                                 }
