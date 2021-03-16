@@ -1,7 +1,5 @@
 # DisguisePlugin
 
-<img src="https://github.com/MasApip/DisguisePlugin/raw/master/icon.png" align="left"></img>
-
 # Installation:
  1. Download the lastest plugin
  2. Put it to your server plugins folder
