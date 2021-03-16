@@ -1,5 +1,8 @@
 # DisguisePlugin
 
+# Description
+Disguised as whatever you want ( Not whatever )
+
 # Installation:
  1. Download the lastest plugin
  2. Put it to your server plugins folder
@@ -19,7 +22,7 @@
 | Sheep | disguise.command.use.sheep |
 | Skeleton | disguise.command.use.skeleton |
 | Villager | disguise.command.use.villager |
-| Wolf` | disguise.command.use.level |
+| Wolf` | disguise.command.use.wolf |
 | Zombie | disguise.command.use.zombie |
 
 # Config:
