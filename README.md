@@ -8,10 +8,11 @@
 # Permission:
 | Disguise | Permission |
 | --- | --- |
+| Open Command | disguise.command.use |
 | Item | disguise.command.use.item |
 | Block | disguise.command.use.block |
-| Player` | disguise.command.use.player |
-| Chicken` | disguise.command.use.chicken |
+| Player | disguise.command.use.player |
+| Chicken | disguise.command.use.chicken |
 | Cow | disguise.command.use.cow |
 | Creeper | disguise.command.use.creeper |
 | Pig | disguise.command.use.pig |
