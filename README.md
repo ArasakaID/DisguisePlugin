@@ -22,7 +22,7 @@ Disguised as whatever you want ( Not whatever )
 | Sheep | disguise.command.use.sheep |
 | Skeleton | disguise.command.use.skeleton |
 | Villager | disguise.command.use.villager |
-| Wolf` | disguise.command.use.level |
+| Wolf` | disguise.command.use.wolf |
 | Zombie | disguise.command.use.zombie |
 
 # Config:
