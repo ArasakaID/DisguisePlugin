@@ -1,0 +1,46 @@
+name: Disguise
+main: ArasakaID\Disguise\Main
+version: 1.0.0
+api: 3.0.0
+
+commands:
+  disguise:
+    permission: disguise.command.use
+    default: op
+    children:
+      disguise.command.use.item:
+        description: Permission for disguise item
+        default: op
+      disguise.command.use.block:
+        description: Permission for disguise block
+        default: op
+      disguise.command.use.player:
+        description: Permission for disguise player
+        default: op
+      disguise.command.use.chicken:
+        description: Permission for disguise entity Chicken
+        default: op
+      disguise.command.use.cow:
+        description: Permission for disguise entity Cow
+        default: op
+      disguise.command.use.creeper:
+        description: Permission for disguise entity Creeper
+        default: op
+      disguise.command.use.pig:
+        description: Permission for disguise entity Pig
+        default: op
+      disguise.command.use.sheep:
+        description: Permission for disguise entity Sheep
+        default: op
+      disguise.command.use.skeleton:
+        description: Permission for disguise entity Skeleton
+        default: op
+      disguise.command.use.villager:
+        description: Permission for disguise entity Villager
+        default: op
+      disguise.command.use.wolf:
+        description: Permission for disguise entity Wolf
+        default: op
+      disguise.command.use.zombie:
+        description: Permission for disguise entity Zombie
+        default: op
