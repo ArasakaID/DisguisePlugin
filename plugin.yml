@@ -7,7 +7,7 @@ description: Disguised as whatever you want
 permissions:
   disguise.command.use:
     description: Permission for open the command
-    default: op
+    default: true
     children:
       disguise.command.use.item:
         description: Permission for disguise item
