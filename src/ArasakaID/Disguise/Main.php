@@ -35,7 +35,6 @@ class Main extends PluginBase
         $this->getServer()->getCommandMap()->register($this->getName(), new DisguiseCommand($this));
         $this->registerEntities();
         $this->checkConfig();
-        $this->sendNotice();
     }
 
     private function registerEntities(){
