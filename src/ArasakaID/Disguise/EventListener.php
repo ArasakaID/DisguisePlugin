@@ -4,6 +4,8 @@ namespace ArasakaID\Disguise;
 
 use ArasakaID\Disguise\data\PlayerData;
 use ArasakaID\Disguise\entity\FallingBlock;
+use ArasakaID\Disguise\entity\ItemEntity;
+use pocketmine\event\inventory\InventoryPickupItemEvent;
 use pocketmine\event\player\PlayerToggleSneakEvent;
 use pocketmine\math\Vector3;
 use pocketmine\Player as PMPlayer;
@@ -30,7 +32,9 @@ class EventListener implements Listener
                 $entity = $playerData->getEntity();
                 if ($entity instanceof FallingBlock) {
                     if($event->isSneaking()) {
-                        $entity->teleport(new Vector3($player->getFloorX() + 0.5, $player->getFloorY() + 0.3, $player->getFloorZ() + 0.5));
+                        foreach ([$entity, $player] as $target) {
+                            $target->teleport(new Vector3($player->getFloorX() + 0.5, $player->getFloorY() + 0.3, $player->getFloorZ() + 0.5));
+                        }
                         $player->setImmobile();
                     } elseif($player->isImmobile()){
                         $player->setImmobile(false);
@@ -38,6 +42,13 @@ class EventListener implements Listener
 
                 }
             }
+        }
+    }
+
+    public function onInventoryPickupItem(InventoryPickupItemEvent $event){
+        $item = $event->getItem();
+        if($item instanceof ItemEntity){
+            $event->setCancelled();
         }
     }
 

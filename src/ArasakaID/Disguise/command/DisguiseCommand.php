@@ -60,6 +60,7 @@ class DisguiseCommand extends Command
                                         $nbt->setInt("TileID", $block->getId());
                                         $nbt->setByte("Data", $block->getDamage());
                                         $entity = new FallingBlock($sender->getLevel(), $nbt, $sender);
+                                        $entity->setImmobile(); #Don't fall while flying!!!!
                                         $entity->spawnToAll();
                                         $playerData->setEntityId($entity->getId());
                                         $sender->sendMessage(str_replace('{BlockName}', $itemFactory->getName(), $this->plugin->getConfig()->get("disguise-as-block")));
@@ -67,8 +68,10 @@ class DisguiseCommand extends Command
                                         $sender->sendMessage(TextFormat::RED . "Item must be a Item Block!");
                                     }
                                 } else {
-                                    $sender->sendMessage(TextFormat::RED . "Wrong with the commands!");
+                                    $sender->sendMessage(TextFormat::RED . "Usage: /disguise block <blockName/BlockID>");
                                 }
+                            } else {
+                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                             }
                             break;
                         case "item":
@@ -81,16 +84,17 @@ class DisguiseCommand extends Command
                                     $itemTag = $item->nbtSerialize();
                                     $itemTag->setName("Item");
                                     $nbt = Entity::createBaseNBT($sender, null, lcg_value() * 360, 0);
-                                    $nbt->setShort("Health", 5);
-                                    $nbt->setShort("PickupDelay", 10);
                                     $nbt->setTag($itemTag);
                                     $itemEntity = new ItemEntity($sender->getLevel(), $nbt, $sender);
+                                    $itemEntity->setImmobile();#Don't fall while flying!!!!
                                     $itemEntity->spawnToAll();
                                     $playerData->setEntityId($itemEntity->getId());
                                     $sender->sendMessage(str_replace('{ItemName}', $itemFactory->getName(), $this->plugin->getConfig()->get("disguise-as-item")));
                                 } else {
-                                    $sender->sendMessage(TextFormat::RED . "Type id/name the item!");
+                                    $sender->sendMessage(TextFormat::RED . "Usage: /disguise item <blockName/BlockID>");
                                 }
+                            } else {
+                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                             }
                             break;
                         case "entity":
@@ -113,6 +117,8 @@ class DisguiseCommand extends Command
                                                 $entity->spawnToAll();
                                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));
                                                 $playerData->setEntityId($entity->getId());
+                                            } else {
+                                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                                             }
                                             break;
                                         case "creeper":
@@ -122,6 +128,8 @@ class DisguiseCommand extends Command
                                                 $entity->spawnToAll();
                                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));
                                                 $playerData->setEntityId($entity->getId());
+                                            } else {
+                                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                                             }
                                             break;
                                         case "pig":
@@ -131,6 +139,8 @@ class DisguiseCommand extends Command
                                                 $entity->spawnToAll();
                                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));
                                                 $playerData->setEntityId($entity->getId());
+                                            } else {
+                                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                                             }
                                             break;
                                         case "sheep":
@@ -140,6 +150,8 @@ class DisguiseCommand extends Command
                                                 $entity->spawnToAll();
                                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));
                                                 $playerData->setEntityId($entity->getId());
+                                            } else {
+                                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                                             }
                                             break;
                                         case "skeleton":
@@ -149,6 +161,8 @@ class DisguiseCommand extends Command
                                                 $entity->spawnToAll();
                                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));
                                                 $playerData->setEntityId($entity->getId());
+                                            } else {
+                                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                                             }
                                             break;
                                         case "villager":
@@ -158,6 +172,8 @@ class DisguiseCommand extends Command
                                                 $entity->spawnToAll();
                                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));
                                                 $playerData->setEntityId($entity->getId());
+                                            } else {
+                                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                                             }
                                             break;
                                         case "wolf":
@@ -167,6 +183,8 @@ class DisguiseCommand extends Command
                                                 $entity->spawnToAll();
                                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));
                                                 $playerData->setEntityId($entity->getId());
+                                            } else {
+                                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                                             }
                                             break;
                                         case "zombie":
@@ -176,11 +194,14 @@ class DisguiseCommand extends Command
                                                 $entity->spawnToAll();
                                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));
                                                 $playerData->setEntityId($entity->getId());
+                                            } else {
+                                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                                             }
                                             break;
                                     }
                                 } else {
-                                    $sender->sendMessage(TextFormat::RED . "Wrong with the commands!");
+                                    $entities = ["Chicken", "Cow", "Creeper", "Pig", "Sheep", "Skeleton", "Villager", "Wolf", "Zombie"];
+                                    $sender->sendMessage(TextFormat::RED . "Usage: /disguise entity <" . implode("/", $entities) . ">");
                                 }
                             } else {
                                 $sender->sendMessage(TextFormat::RED . "Disguise entity is disable!");
@@ -206,12 +227,16 @@ class DisguiseCommand extends Command
                                     } else {
                                         $sender->sendMessage(TextFormat::RED . "The player is not online in this server!");
                                     }
+                                } else {
+                                    $sender->sendMessage(TextFormat::RED . "Usage: /disguise player <playerName>");
                                 }
+                            } else {
+                                $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                             }
                             break;
                     }
                 } else {
-                    $sender->sendMessage(TextFormat::RED . "Invalid usage!");
+                    $sender->sendMessage(TextFormat::RED . "Usage: /disguise <block/item/player/entity/clear>");
                 }
             }
         }

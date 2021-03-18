@@ -35,7 +35,6 @@ class Main extends PluginBase
         $this->getServer()->getCommandMap()->register($this->getName(), new DisguiseCommand($this));
         $this->registerEntities();
         $this->checkConfig();
-        $this->sendNotice();
     }
 
     private function registerEntities(){
@@ -56,19 +55,10 @@ class Main extends PluginBase
         }
     }
 
-    private function sendNotice(){
-        if ($this->getConfig()->get("disguise-entity")) {
-            $this->getLogger()->notice("Disguise Entity is enable, registering new entities class!");
-        } else {
-            $this->getLogger()->notice("Disguise Entity is disabled!");
-        }
-    }
-
     private function checkConfig()
     {
         if ($this->getConfig()->get("config-version") !== 1.2) {
-            $this->getLogger()->notice("You are using the new version of Disguise Plugin, updating config.yml !");
-            rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config.old.yml");
+            rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config-old.yml");
             $this->reloadConfig();
         }
     }
