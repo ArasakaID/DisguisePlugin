@@ -11,7 +11,8 @@ use pocketmine\Player;
 
 class ItemEntity extends PMItemEntity{
 
-    protected ?Player $player;
+    /** @var Player */
+    protected $player;
 
     public function __construct(Level $level, CompoundTag $nbt, Player $player)
     {

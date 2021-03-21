@@ -11,7 +11,8 @@ use pocketmine\nbt\tag\CompoundTag;
 
 class Player extends Human{
 
-    protected ?PMPlayer $player;
+    /** @var PMPlayer */
+    protected $player;
 
     public function __construct(Level $level, CompoundTag $nbt, PMPlayer $player)
     {

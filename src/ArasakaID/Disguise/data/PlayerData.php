@@ -7,9 +7,12 @@ use pocketmine\Player;
 
 class PlayerData {
 
-    private Player $player;
-    private static array $entityId = [];
-    private static array $fakePlayer = [];
+    /** @var Player */
+    private $player;
+    /** @var array */
+    private static $entityId = [];
+    /** @var array */
+    private static $fakePlayer = [];
 
     public function __construct(Player $player)
     {

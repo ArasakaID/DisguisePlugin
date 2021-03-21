@@ -17,7 +17,8 @@ use pocketmine\utils\TextFormat;
 class EventListener implements Listener
 {
 
-    private Main $plugin;
+    /** @var Main */
+    private $plugin;
 
     public function __construct(Main $plugin)
     {

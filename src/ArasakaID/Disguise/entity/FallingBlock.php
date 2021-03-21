@@ -12,8 +12,10 @@ use pocketmine\Player;
 
 class FallingBlock extends PMFallingBlock {
 
-    private ?Player $player;
-    private Main $plugin;
+    /** @var Player */
+    private $player;
+    /** @var Main */
+    private $plugin;
 
     public function __construct(Level $level, CompoundTag $nbt, Player $player)
     {

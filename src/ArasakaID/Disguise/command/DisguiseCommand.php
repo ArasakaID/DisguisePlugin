@@ -29,7 +29,8 @@ use pocketmine\utils\TextFormat;
 class DisguiseCommand extends Command
 {
 
-    private Main $plugin;
+    /** @var Main */
+    private $plugin;
 
     public function __construct(Main $plugin)
     {

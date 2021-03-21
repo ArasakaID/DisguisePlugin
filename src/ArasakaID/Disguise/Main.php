@@ -22,7 +22,8 @@ use pocketmine\plugin\PluginBase;
 class Main extends PluginBase
 {
 
-    private static Main $instance;
+    /** @var Main */
+    private static $instance;
 
     public static function getInstance(): Main {
         return self::$instance;

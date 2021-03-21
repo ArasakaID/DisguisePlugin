@@ -11,7 +11,8 @@ use pocketmine\Player;
 
 abstract class Entity extends PMEntity{
 
-    protected ?Player $player = null;
+    /** @var Player|null */
+    protected $player = null;
     public $width = 1.3;
     public $height = 1.4;
 
