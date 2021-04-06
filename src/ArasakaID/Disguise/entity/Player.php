@@ -11,10 +11,10 @@ use pocketmine\nbt\tag\CompoundTag;
 
 class Player extends Human{
 
-    /** @var PMPlayer */
-    protected $player;
+    /** @var null|PMPlayer */
+    private $player;
 
-    public function __construct(Level $level, CompoundTag $nbt, PMPlayer $player)
+    public function __construct(Level $level, CompoundTag $nbt, PMPlayer $player = null)
     {
         $this->player = $player;
         parent::__construct($level, $nbt);

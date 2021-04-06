@@ -34,13 +34,13 @@ class EventListener implements Listener
                 if ($entity instanceof FallingBlock) {
                     if($event->isSneaking()) {
                         foreach ([$entity, $player] as $target) {
-                            $target->teleport(new Vector3($player->getFloorX() + 0.5, $player->getFloorY() + 0.3, $player->getFloorZ() + 0.5));
+                            $target->teleport(new Vector3($player->getFloorX() + 0.5, $player->getLevelNonNull()->getHighestBlockAt($player->getFloorX(), $player->getFloorZ()) + 1.2, $player->getFloorZ() + 0.5));
+                            $player->setImmobile();
                         }
                         $player->setImmobile();
                     } elseif($player->isImmobile()){
                         $player->setImmobile(false);
                     }
-
                 }
             }
         }

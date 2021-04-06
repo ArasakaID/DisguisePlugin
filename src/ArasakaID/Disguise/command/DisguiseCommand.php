@@ -23,6 +23,7 @@ use pocketmine\entity\Entity;
 use pocketmine\item\Item;
 use pocketmine\item\ItemBlock;
 use pocketmine\item\ItemFactory;
+use pocketmine\lang\TranslationContainer;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
@@ -52,7 +53,12 @@ class DisguiseCommand extends Command
                         case "block":
                             if($sender->hasPermission("disguise.command.block")) {
                                 if (isset($args[1])) {
-                                    $itemFactory = ItemFactory::fromStringSingle($args[1]);
+                                    try{
+                                        $itemFactory = ItemFactory::fromStringSingle($args[1]);
+                                    }catch(\InvalidArgumentException $e){
+                                        $sender->sendMessage(TextFormat::RED . "Item " . $args[1] . " is not found!");
+                                        return;
+                                    }
                                     if ($itemFactory instanceof ItemBlock) {
                                         $id = $itemFactory->getId();
                                         $meta = $args[2] ?? 0;
@@ -60,7 +66,7 @@ class DisguiseCommand extends Command
                                         $block = new Block($id, $meta);
                                         $nbt->setInt("TileID", $block->getId());
                                         $nbt->setByte("Data", $block->getDamage());
-                                        $entity = new FallingBlock($sender->getLevel(), $nbt, $sender);
+                                        $entity = new FallingBlock($sender->getLevel(), $nbt, $sender, $this->plugin->getConfig()->get("disguise-block-sneak"));
                                         $entity->setImmobile(); #Don't fall while flying!!!!
                                         $entity->spawnToAll();
                                         $playerData->setEntityId($entity->getId());
@@ -78,7 +84,12 @@ class DisguiseCommand extends Command
                         case "item":
                             if($sender->hasPermission("disguise.command.use.item")) {
                                 if (isset($args[1])) {
-                                    $itemFactory = ItemFactory::fromStringSingle($args[1]);
+                                    try{
+                                        $itemFactory = ItemFactory::fromStringSingle($args[1]);
+                                    }catch(\InvalidArgumentException $e){
+                                        $sender->sendMessage(TextFormat::RED . "Item " . $args[1] . " is not found!");
+                                        return;
+                                    }
                                     $id = $itemFactory->getId();
                                     $meta = $args[2] ?? 0;
                                     $item = new Item($id, $meta);
@@ -235,9 +246,12 @@ class DisguiseCommand extends Command
                                 $sender->sendMessage(TextFormat::RED . "You don't have permission to do this command!");
                             }
                             break;
+                        case "help":
+                            $sender->sendMessage(TextFormat::RED . "Usage: /disguise <block/item/player/entity/clear> <args>");
+                            break;
                     }
                 } else {
-                    $sender->sendMessage(TextFormat::RED . "Usage: /disguise <block/item/player/entity/clear>");
+                    $sender->sendMessage(TextFormat::RED . "Usage: /disguise help");
                 }
             }
         }

@@ -12,15 +12,15 @@ use pocketmine\Player;
 
 class FallingBlock extends PMFallingBlock {
 
-    /** @var Player */
+    /** @var null|Player */
     private $player;
-    /** @var Main */
-    private $plugin;
+    /** @var bool */
+    private $blockSneak;
 
-    public function __construct(Level $level, CompoundTag $nbt, Player $player)
+    public function __construct(Level $level, CompoundTag $nbt, Player $player = null, bool $blockSneak = false)
     {
         $this->player = $player;
-        $this->plugin = Main::getInstance();
+        $this->blockSneak = $blockSneak;
         parent::__construct($level, $nbt);
     }
 
@@ -33,7 +33,7 @@ class FallingBlock extends PMFallingBlock {
         if(!$playerData->isRegistered()){
             return false;
         }
-        if($this->player->isSneaking() && $this->plugin->getConfig()->get("disguise-block-sneak")){
+        if($this->player->isSneaking() && $this->blockSneak){
             return false;
         }
         $this->setPosition(new Vector3($this->player->getX(), $this->player->getY(), $this->player->getZ()));

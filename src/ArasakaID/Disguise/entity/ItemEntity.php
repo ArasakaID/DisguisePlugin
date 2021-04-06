@@ -11,10 +11,10 @@ use pocketmine\Player;
 
 class ItemEntity extends PMItemEntity{
 
-    /** @var Player */
-    protected $player;
+    /** @var null|Player */
+    private $player;
 
-    public function __construct(Level $level, CompoundTag $nbt, Player $player)
+    public function __construct(Level $level, CompoundTag $nbt, Player $player = null)
     {
         $this->player = $player;
         parent::__construct($level, $nbt);
