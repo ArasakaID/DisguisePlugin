@@ -2,7 +2,7 @@
 
 namespace ArasakaID\Disguise\session;
 
-use ArasakaID\Disguise\DisguisePlugin;
+use ArasakaID\Disguise\entity\DisguiseEntity;
 use ArasakaID\Disguise\entity\types\Block;
 use ArasakaID\Disguise\entity\types\Item;
 use pocketmine\player\Player;
@@ -19,16 +19,16 @@ class Session {
 
     public function __construct(
         private Player $player,
-        private DisguisePlugin|Block|Item|FakePlayer|null $entity = null
+        private DisguiseEntity|Block|Item|FakePlayer|null $entity = null
     ){}
 
-    public function setEntity(Item|Block|DisguisePlugin|FakePlayer|null $entity): void
+    public function setEntity(Item|Block|DisguiseEntity|FakePlayer|null $entity): void
     {
         $this->despawnCurrentEntity();
         $this->entity = $entity;
     }
 
-    public function getEntity(): Item|Block|DisguisePlugin|FakePlayer|null
+    public function getEntity(): Item|Block|DisguiseEntity|FakePlayer|null
     {
         return $this->entity;
     }

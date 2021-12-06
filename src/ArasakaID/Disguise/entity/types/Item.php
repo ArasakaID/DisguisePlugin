@@ -19,6 +19,8 @@ class Item extends PMItemEntity{
         if(($player = $this->getOwningEntity()) instanceof Player){
             $this->setPosition($player->getPosition());
             $player->setInvisible();
+        } elseif(!$this->isFlaggedForDespawn()) {
+            $this->flagForDespawn();
         }
         return true;
     }

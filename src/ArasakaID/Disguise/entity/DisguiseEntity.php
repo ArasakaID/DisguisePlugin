@@ -86,8 +86,8 @@ abstract class DisguiseEntity extends Entity {
             $player->setInvisible();
             $location = $player->getLocation();
             $this->setPositionAndRotation($location, $location->yaw, $location->pitch);
-        } else {
-            $this->close();
+        } elseif(!$this->isFlaggedForDespawn()) {
+            $this->flagForDespawn();
         }
         return $update;
     }

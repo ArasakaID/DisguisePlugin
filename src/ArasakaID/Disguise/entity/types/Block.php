@@ -3,27 +3,35 @@
 namespace ArasakaID\Disguise\entity\types;
 
 use pocketmine\entity\Location;
-use pocketmine\entity\object\FallingBlock as PMFallingBlock;
+use pocketmine\entity\object\FallingBlock;
+use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
+use pocketmine\player\Player;
 
-class Block extends PMFallingBlock {
+class Block extends FallingBlock {
 
-    public function __construct(Location $location, \pocketmine\block\Block $block, ?CompoundTag $nbt = null, private $blockSneak = false)
+    public function __construct(Location $location, \pocketmine\block\Block $block, ?CompoundTag $nbt = null)
     {
         parent::__construct($location, $block, $nbt);
     }
 
+    public function initEntity(CompoundTag $nbt): void
+    {
+        parent::initEntity($nbt);
+        $this->getNetworkProperties()->setVector3(EntityMetadataProperties::RIDER_SEAT_POSITION, new Vector3(0, -1.125, 0));
+    }
+
     public function entityBaseTick(int $tickDiff = 1): bool
     {
-        if(($player = $this->getOwningEntity()) instanceof FakePlayer){
-            if($this->blockSneak && $player->isSneaking()){
-                $this->setPosition($player->getPosition()->add(0.5, 0, 0.5));
-            } else {
-                $this->setPosition($player->getPosition());
-            }
+        if(($player = $this->getOwningEntity()) instanceof Player){
+            $this->setPosition($player->getPosition()->add(0, -1.125, 0));
+            $this->onGround = false;
             $player->setInvisible();
+        } elseif(!$this->isFlaggedForDespawn()) {
+            $this->flagForDespawn();
         }
-        return true;
+        return parent::entityBaseTick();
     }
 
     public function getName(): string

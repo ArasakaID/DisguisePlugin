@@ -14,6 +14,8 @@ use pocketmine\item\ItemBlock;
 use pocketmine\item\LegacyStringToItemParser;
 use pocketmine\item\LegacyStringToItemParserException;
 use pocketmine\item\StringToItemParser;
+use pocketmine\network\mcpe\protocol\SetActorLinkPacket;
+use pocketmine\network\mcpe\protocol\types\entity\EntityLink;
 use pocketmine\player\Player;
 
 class DisguiseCommand extends Command
@@ -30,19 +32,24 @@ class DisguiseCommand extends Command
         if ($sender instanceof Player && $this->testPermission($sender)) {
             if (isset($args[0])) {
                 $session = Session::getOrCreate($sender);
-                if (isset(DisguiseEntity::ENTITIES[$args[0]])) {
-                    switch ($args[0]) {
+                if (in_array($args[0], ["fakeplayer", "player"]) or isset(DisguiseEntity::ENTITIES[ucfirst($args[0])])) {
+                    switch (strtolower($args[0])) {
                         case "fakeplayer":
                         case "player":
                             if ($sender->hasPermission("disguise.command.as.player")) {
                                 if (isset($args[1])) {
                                     if (($target = $sender->getServer()->getPlayerByPrefix($args[1])) instanceof Player) {
-                                        $entity = new FakePlayer($sender->getLocation(), $target->getSkin());
-                                        $entity->setOwningEntity($sender);
-                                        $entity->setTargetEntity($target);
-                                        $entity->spawnToAll();
-                                        $session->setEntity($entity);
-                                        $sender->sendMessage(str_replace('{TargetName}', $target->getName(), $this->plugin->getConfig()->get("disguise-as-player")));
+                                        if($target->getName() !== $sender->getName()) {
+                                            $entity = new FakePlayer($sender->getLocation(), $target->getSkin());
+                                            $entity->setOwningEntity($sender);
+                                            $entity->setTargetEntity($target);
+                                            $entity->setCanSaveWithChunk(false);
+                                            $entity->spawnToAll();
+                                            $session->setEntity($entity);
+                                            $sender->sendMessage(str_replace('{TargetName}', $target->getName(), $this->plugin->getConfig()->get("disguise-as-player")));
+                                        } else {
+                                            $sender->sendMessage("§cYou can't disguised as your self!");
+                                        }
                                     } else {
                                         $sender->sendMessage("§cPlayer $args[1] is not online!");
                                     }
@@ -64,7 +71,13 @@ class DisguiseCommand extends Command
                                         $block = $item->getBlock();
                                         $entity = new Block($sender->getLocation(), $block);
                                         $entity->setOwningEntity($sender);
+                                        $entity->setCanSaveWithChunk(false);
                                         $entity->spawnToAll();
+
+                                        $pk = new SetActorLinkPacket();
+                                        $pk->link = new EntityLink($sender->getId(), $entity->getId(), EntityLink::TYPE_RIDER, true, true);
+                                        $sender->getServer()->broadcastPackets($entity->getViewers(), [$pk]);
+
                                         $session->setEntity($entity);
                                         $sender->sendMessage(str_replace('{BlockName}', $block->getName(), $this->plugin->getConfig()->get("disguise-as-block")));
                                     }
@@ -86,6 +99,7 @@ class DisguiseCommand extends Command
                                     }
                                     $entity = new Item($sender->getLocation(), $item);
                                     $entity->setOwningEntity($sender);
+                                    $entity->setCanSaveWithChunk(false);
                                     $entity->spawnToAll();
                                     $session->setEntity($entity);
                                     $sender->sendMessage(str_replace('{ItemName}', $item->getName(), $this->plugin->getConfig()->get("disguise-as-item")));
@@ -98,9 +112,10 @@ class DisguiseCommand extends Command
                             break;
                         default:
                             if ($sender->hasPermission("disguise.command.as." . strtolower($args[0]))) {
-                                $className =  DisguiseEntity::ENTITIES[$args[0]];
+                                $className = DisguiseEntity::ENTITIES[ucfirst($args[0])];
                                 $entity = new $className($sender->getLocation());
                                 $entity->setOwningEntity($sender);
+                                $entity->setCanSaveWithChunk(false);
                                 $entity->spawnToAll();
                                 $session->setEntity($entity);
                                 $sender->sendMessage(str_replace('{EntityName}', $entity->getName(), $this->plugin->getConfig()->get("disguise-as-entity")));

@@ -6,20 +6,25 @@ use ArasakaID\Disguise\command\DisguiseCommand;
 use ArasakaID\Disguise\entity\DisguiseEntity as DisguiseEntity;
 use ArasakaID\Disguise\event\EventHandler;
 use pocketmine\plugin\PluginBase;
-use pocketmine\utils\SingletonTrait;
 
 class DisguisePlugin extends PluginBase
 {
-    use SingletonTrait;
+
+    private static self $instance;
+
+    public static function getInstance(): self
+    {
+        return self::$instance;
+    }
 
     public function onLoad(): void
     {
-        self::setInstance($this);
+        self::$instance = $this;
     }
 
     public function onEnable(): void
     {
-        $this->getServer()->getPluginManager()->registerEvents(new EventHandler(), $this);
+        $this->getServer()->getPluginManager()->registerEvents(new EventHandler($this), $this);
         $this->getServer()->getCommandMap()->register($this->getName(), new DisguiseCommand($this));
 
         DisguiseEntity::init();

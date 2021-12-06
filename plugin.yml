@@ -1,6 +1,6 @@
 name: Disguise
 main: ArasakaID\Disguise\DisguisePlugin
-version: 2.0.0
+version: 2.0.1
 api: 4.0.0
 description: Disguised as whatever you want
 
