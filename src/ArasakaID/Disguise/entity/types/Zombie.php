@@ -2,11 +2,15 @@
 
 namespace ArasakaID\Disguise\entity\types;
 
-use ArasakaID\Disguise\entity\Entity;
+use ArasakaID\Disguise\entity\DisguiseEntity;
+use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 
-class Zombie extends Entity{
+class Zombie extends DisguiseEntity{
 
-    public const NETWORK_ID = self::ZOMBIE;
+    public static function getNetworkTypeId(): string
+    {
+        return EntityIds::ZOMBIE;
+    }
 
     public function getName(): string
     {

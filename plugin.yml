@@ -1,47 +1,46 @@
 name: Disguise
-main: ArasakaID\Disguise\Main
-version: 1.0.3
-api: 3.0.0
+main: ArasakaID\Disguise\DisguisePlugin
+version: 2.0.0
+api: 4.0.0
 description: Disguised as whatever you want
 
 permissions:
-  disguise.command.use:
+  disguise.command:
     description: Permission for open the command
     default: op
-    children:
-      disguise.command.use.item:
-        description: Permission for disguise item
-        default: op
-      disguise.command.use.block:
-        description: Permission for disguise block
-        default: op
-      disguise.command.use.player:
-        description: Permission for disguise player
-        default: op
-      disguise.command.use.chicken:
-        description: Permission for disguise entity Chicken
-        default: op
-      disguise.command.use.cow:
-        description: Permission for disguise entity Cow
-        default: op
-      disguise.command.use.creeper:
-        description: Permission for disguise entity Creeper
-        default: op
-      disguise.command.use.pig:
-        description: Permission for disguise entity Pig
-        default: op
-      disguise.command.use.sheep:
-        description: Permission for disguise entity Sheep
-        default: op
-      disguise.command.use.skeleton:
-        description: Permission for disguise entity Skeleton
-        default: op
-      disguise.command.use.villager:
-        description: Permission for disguise entity Villager
-        default: op
-      disguise.command.use.wolf:
-        description: Permission for disguise entity Wolf
-        default: op
-      disguise.command.use.zombie:
-        description: Permission for disguise entity Zombie
-        default: op
+  disguise.command.as.item:
+    description: Permission for disguise item
+    default: op
+  disguise.command.as.block:
+    description: Permission for disguise block
+    default: op
+  disguise.command.as.player:
+    description: Permission for disguise player
+    default: op
+  disguise.command.as.chicken:
+    description: Permission for disguise entity Chicken
+    default: op
+  disguise.command.as.cow:
+    description: Permission for disguise entity Cow
+    default: op
+  disguise.command.as.creeper:
+    description: Permission for disguise entity Creeper
+    default: op
+  disguise.command.as.pig:
+    description: Permission for disguise entity Pig
+    default: op
+  disguise.command.as.sheep:
+    description: Permission for disguise entity Sheep
+    default: op
+  disguise.command.as.skeleton:
+    description: Permission for disguise entity Skeleton
+    default: op
+  disguise.command.as.villager:
+    description: Permission for disguise entity Villager
+    default: op
+  disguise.command.as.wolf:
+    description: Permission for disguise entity Wolf
+    default: op
+  disguise.command.as.zombie:
+    description: Permission for disguise entity Zombie
+    default: op
