@@ -17,8 +17,10 @@ use pocketmine\item\StringToItemParser;
 use pocketmine\network\mcpe\protocol\SetActorLinkPacket;
 use pocketmine\network\mcpe\protocol\types\entity\EntityLink;
 use pocketmine\player\Player;
+use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginOwned;
 
-class DisguiseCommand extends Command
+class DisguiseCommand extends Command implements PluginOwned
 {
 
     public function __construct(private DisguisePlugin $plugin)
@@ -133,4 +135,8 @@ class DisguiseCommand extends Command
         }
     }
 
+    public function getOwningPlugin(): Plugin
+    {
+        return $this->plugin;
+    }
 }
